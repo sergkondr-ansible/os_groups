@@ -1,0 +1,12 @@
+---
+
+- name: Manage groups
+  group:
+    name: "{{ item.name }}"
+    gid: "{{ item.gid | default(omit) }}"
+    state: "{{ item.state | default('present') }}"
+    system: "{{ item.system | default('no') }}"
+  with_items:
+    - "{{ os_groups }}"
+    - "{{ os_groups_default }}"
+  when: item is defined
